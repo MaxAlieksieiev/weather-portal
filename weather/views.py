@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import CityForm
+import datetime
 
 import requests
 # Create your views here.
@@ -26,7 +27,8 @@ def index(request):
                     'humidity': city_weather['main']['humidity'],
                     'wind': city_weather['wind']['speed'],
                     'direction': city_weather['wind']['deg'],
-                    'icon': city_weather['weather'][0]['icon']
+                    'time': datetime.datetime.fromtimestamp(int(city_weather['dt'])).strftime('%Y-%m-%d %H:%M:%S'),
+                    'icon': city_weather['weather'][0]['icon'],
                 }
                 context = {"weather": weather, "form": city_form}
 

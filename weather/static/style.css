@@ -1220,7 +1220,7 @@ form textarea {
     color: white; }
   .find-location input[type="submit"] {
     position: absolute;
-    top: 5px;
+    top: 25px;
     right: 5px;
     bottom: 5px;
     padding: 0 40px; }
