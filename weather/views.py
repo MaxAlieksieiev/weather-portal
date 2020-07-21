@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import CityForm
+from .models import City
 import datetime
 
 import requests
@@ -12,11 +13,10 @@ def index(request):
         city_form = CityForm(request.POST)
 
         if city_form.is_valid():
-            city = city_form.cleaned_data['city']
+            city = city_form.cleaned_data['name']
 
             city_weather = requests.get(url.format(city)).json()
-
-            if(city_weather['cod'] == '404'):
+            if (city_weather['cod'] == '404'):
                 message = "City not found. Lets try again."
                 return render(request, 'weather/index.html', {'message': message, 'form': city_form})
             else:
@@ -38,3 +38,15 @@ def index(request):
         city_form = CityForm()
 
     return render(request, "weather/index.html", {'form': city_form})
+
+
+def show(request):
+    weather_data = []
+
+    cities = City.objects.order_by('name').values('name', 'id').distinct()
+
+    for city in cities:
+        print(city)
+
+
+    return render(request, 'weather/cities.html')

@@ -29,7 +29,7 @@
 		<div class="site-content">
 			<div class="site-header">
 				<div class="container">
-					<a href="index.html" class="branding">
+					<a href="{% url 'main' %}" class="branding">
 						<img src="{% static 'images/logo.png' %}" alt="" class="logo">
 						<div class="logo-type">
 							<h1 class="site-title">Weather online</h1>
@@ -41,12 +41,11 @@
 					<div class="main-navigation">
 						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
 						<ul class="menu">
-							<li class="menu-item current-menu-item"><a href="index.html">Main</a></li>
-							<li class="menu-item"><a href="news.html">News</a></li>
-<!--							<li class="menu-item"><a href="live-cameras.html">Live cameras</a></li>-->
-<!--							<li class="menu-item"><a href="photos.html">Photos</a></li>-->
-<!--							<li class="menu-item"><a href="contact.html">Contact</a></li>-->
-						</ul> <!-- .menu -->
+							<li class="menu-item"><a href="{% url 'main' %}">Main</a></li>
+							<li class="menu-item"><a href="{% url 'show' %}">16 day</a></li>
+
+						</ul>
+						 <!-- .menu -->
 					</div> <!-- .main-navigation -->
 
 					<div class="mobile-navigation"></div>
@@ -89,78 +88,6 @@
 							<p class="colophon" style="font-size: 20px; padding-left:20px; color: red">{{ message}}</p>
 						</div>
 
-<!--						<div class="forecast">-->
-<!--							<div class="forecast-header">-->
-<!--								<div class="day">Tuesday</div>-->
-<!--							</div> &lt;!&ndash; .forecast-header &ndash;&gt;-->
-<!--							<div class="forecast-content">-->
-<!--								<div class="forecast-icon">-->
-<!--									<img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image" width="48">-->
-<!--								</div>-->
-<!--								<div class="degree">{{ weather.temperature }}<sup>o</sup>F</div>-->
-<!--								<small>18<sup>o</sup></small>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="forecast">-->
-<!--							<div class="forecast-header">-->
-<!--								<div class="day">Wednesday</div>-->
-<!--							</div> &lt;!&ndash; .forecast-header &ndash;&gt;-->
-<!--							<div class="forecast-content">-->
-<!--								<div class="forecast-icon">-->
-<!--									<img src="{% static 'images/icons/icon-5.svg' %}" alt="" width=48>-->
-<!--								</div>-->
-<!--								<div class="degree">23<sup>o</sup>C</div>-->
-<!--								<small>18<sup>o</sup></small>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="forecast">-->
-<!--							<div class="forecast-header">-->
-<!--								<div class="day">Thursday</div>-->
-<!--							</div> &lt;!&ndash; .forecast-header &ndash;&gt;-->
-<!--							<div class="forecast-content">-->
-<!--								<div class="forecast-icon">-->
-<!--									<img src="{% static 'images/icons/icon-7.svg' %}" alt="" width=48>-->
-<!--								</div>-->
-<!--								<div class="degree">23<sup>o</sup>C</div>-->
-<!--								<small>18<sup>o</sup></small>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="forecast">-->
-<!--							<div class="forecast-header">-->
-<!--								<div class="day">Friday</div>-->
-<!--							</div> &lt;!&ndash; .forecast-header &ndash;&gt;-->
-<!--							<div class="forecast-content">-->
-<!--								<div class="forecast-icon">-->
-<!--									<img src="{% static 'images/icons/icon-12.svg' %}" alt="" width=48>-->
-<!--								</div>-->
-<!--								<div class="degree">23<sup>o</sup>C</div>-->
-<!--								<small>18<sup>o</sup></small>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="forecast">-->
-<!--							<div class="forecast-header">-->
-<!--								<div class="day">Saturday</div>-->
-<!--							</div> &lt;!&ndash; .forecast-header &ndash;&gt;-->
-<!--							<div class="forecast-content">-->
-<!--								<div class="forecast-icon">-->
-<!--									<img src="{% static 'images/icons/icon-13.svg' %}" alt="" width=48>-->
-<!--								</div>-->
-<!--								<div class="degree">23<sup>o</sup>C</div>-->
-<!--								<small>18<sup>o</sup></small>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="forecast">-->
-<!--							<div class="forecast-header">-->
-<!--								<div class="day">Sunday</div>-->
-<!--							</div> &lt;!&ndash; .forecast-header &ndash;&gt;-->
-<!--							<div class="forecast-content">-->
-<!--								<div class="forecast-icon">-->
-<!--									<img src="{% static 'images/icons/icon-14.svg' %}" alt="" width=48>-->
-<!--								</div>-->
-<!--								<div class="degree">23<sup>o</sup>C</div>-->
-<!--								<small>18<sup>o</sup></small>-->
-<!--							</div>-->
-<!--						</div>-->
 					</div>
 				</div>
 			</div>
