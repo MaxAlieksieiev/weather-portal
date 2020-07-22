@@ -1,10 +1,10 @@
 from django.forms import ModelForm, TextInput
-from .models import City
+from .models import Weather
 
 class CityForm(ModelForm):
     class Meta:
-        model = City
-        fields = ['name']
+        model = Weather
+        fields = ['city']
         widgets = {
-            'name': TextInput(attrs={'class': 'input', 'placeholder': 'City Name'}),
+            'city': TextInput(attrs={'class': 'input', 'placeholder': 'City Name'}),
         }

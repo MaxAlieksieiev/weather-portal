@@ -82,10 +82,10 @@
 									</div>	
 								</div>
 								<span><img src="{% static 'images/icon-umberella.png' %}" alt="">{{ weather.humidity }}%</span>
-								<span><img src="{% static 'images/icon-wind.png' %}" alt="">{{ weather.wind}} m/s</span>
-								<span><img src="{% static 'images/icon-compass.png' %}" alt="">{{ weather.direction}}<sup>o</sup></span>
+								<span><img src="{% static 'images/icon-wind.png' %}" alt="">{{ weather.wind_speed}} m/s</span>
+								<span><img src="{% static 'images/icon-compass.png' %}" alt="">{{ weather.wind_direction}}<sup>o</sup></span>
 							</div>
-							<p class="colophon" style="font-size: 20px; padding-left:20px; color: red">{{ message}}</p>
+							<p class="colophon" style="font-size: 20px; padding-left:20px; color: red">{{ weather.message}}</p>
 						</div>
 
 					</div>
