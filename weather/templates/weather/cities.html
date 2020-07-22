@@ -62,113 +62,58 @@
 
 				</div>
 			</div>
-			<div class="widget">
-				<div class="container">
-					<div id="openweathermap-widget-11"></div>
-				</div>
-
-			</div>
-
 			<div class="forecast-table">
 				<div class="container">
 					<div class="forecast-container">
+						{% for weather in object_list%}
 						<div class="today forecast">
 							<div class="forecast-header">
-								<div class="day"></div>
+								<div class="date">{{weather.date}}</div>
 <!--								<div class="date">6 Oct</div>-->
 							</div> <!-- .forecast-header -->
 							<div class="forecast-content">
-								<div class="location"></div>
+								<div class="location">{{weather.city}}</div>
 								<div></div>
 								<div class="degree">
-									<div class="num"><sup>o</sup>C</div>
+									<div class="num">{{ weather.temperature}}<sup>o</sup>C</div>
 									<div class="forecast-icon">
-										<img src="http://openweathermap.org/img/w/{{ weather_data.icon }}.png" alt="Image" width=90>
+										<img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image" width=90>
 									</div>
 								</div>
-								<span><img src="{% static 'images/icon-umberella.png' %}" alt="">%</span>
-								<span><img src="{% static 'images/icon-wind.png' %}" alt=""> m/s</span>
-								<span><img src="{% static 'images/icon-compass.png' %}" alt=""><sup>o</sup></span>
+								<span><img src="{% static 'images/icon-umberella.png' %}" alt="">{{ weather.humidity}}%</span>
+								<span><img src="{% static 'images/icon-wind.png' %}" alt="">{{ weather.wind_speed}} m/s</span>
+								<span><img src="{% static 'images/icon-compass.png' %}" alt="">{{ weather.wind_direction}}<sup>o</sup></span>
 							</div>
-							<p class="colophon" style="font-size: 20px; padding-left:20px; color: red"></p>
-						</div>
 
-						<div class="forecast">
-							<div class="forecast-header">
-								<div class="day">Tuesday</div>
-							</div> <!-- .forecast-header -->
-							<div class="forecast-content">
-								<div class="forecast-icon">
-									<img src="http://openweathermap.org/img/w/.png" alt="Image" width="48">
-								</div>
-								<div class="degree">{{ weather.temperature }}<sup>o</sup>F</div>
-								<small>18<sup>o</sup></small>
-							</div>
 						</div>
-						<div class="forecast">
-							<div class="forecast-header">
-								<div class="day">Wednesday</div>
-							</div> <!-- .forecast-header -->
-							<div class="forecast-content">
-								<div class="forecast-icon">
-									<img src="{% static 'images/icons/icon-5.svg' %}" alt="" width=48>
-								</div>
-								<div class="degree">23<sup>o</sup>C</div>
-								<small>18<sup>o</sup></small>
-							</div>
-						</div>
-						<div class="forecast">
-							<div class="forecast-header">
-								<div class="day">Thursday</div>
-							</div> <!-- .forecast-header -->
-							<div class="forecast-content">
-								<div class="forecast-icon">
-									<img src="{% static 'images/icons/icon-7.svg' %}" alt="" width=48>
-								</div>
-								<div class="degree">23<sup>o</sup>C</div>
-								<small>18<sup>o</sup></small>
-							</div>
-						</div>
-						<div class="forecast">
-							<div class="forecast-header">
-								<div class="day">Friday</div>
-							</div> <!-- .forecast-header -->
-							<div class="forecast-content">
-								<div class="forecast-icon">
-									<img src="{% static 'images/icons/icon-12.svg' %}" alt="" width=48>
-								</div>
-								<div class="degree">23<sup>o</sup>C</div>
-								<small>18<sup>o</sup></small>
-							</div>
-						</div>
-						<div class="forecast">
-							<div class="forecast-header">
-								<div class="day">Saturday</div>
-							</div> <!-- .forecast-header -->
-							<div class="forecast-content">
-								<div class="forecast-icon">
-									<img src="{% static 'images/icons/icon-13.svg' %}" alt="" width=48>
-								</div>
-								<div class="degree">23<sup>o</sup>C</div>
-								<small>18<sup>o</sup></small>
-							</div>
-						</div>
-						<div class="forecast">
-							<div class="forecast-header">
-								<div class="day">Sunday</div>
-							</div> <!-- .forecast-header -->
-							<div class="forecast-content">
-								<div class="forecast-icon">
-									<img src="{% static 'images/icons/icon-14.svg' %}" alt="" width=48>
-								</div>
-								<div class="degree">23<sup>o</sup>C</div>
-								<small>18<sup>o</sup></small>
-							</div>
-						</div>
+						{% endfor %}
+
 					</div>
 				</div>
 			</div>
 
+			<div class="pagination">
+				<div class="container">
+					<span class="step-links">
+					{% if page_obj.has_previous %}
+
+						<a class="page page-prev" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+						<a class="page page-first" href="?page=1">1</a>
+					{% endif %}
+
+					<span class="current">
+						<a class="page current-page" href="?page={{ page_obj.number }}">{{page_obj.number}}</a>
+					</span>
+
+					{% if page_obj.has_next %}
+						<a class="page page-last" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+						<a class="page page-next" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+
+					{% endif %}
+					</span>
+				</div>
+
+			</div>
 
 			<footer class="site-footer">
 				<div class="container">
@@ -198,17 +143,7 @@
 		<script src="{% static 'js/plugins.js' %}"></script>
 		<script src="{% static 'js/app.js' %}"></script>
 
-		<script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
-		<script>
-			window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
-			window.myWidgetParam.push({id: 11,cityid: '26',appid: '214eb92b337eee6a6b689da021294f39',
-			units: 'metric',containerid: 'openweathermap-widget-11',  });
-			(function() {var script = document.createElement('script');
-			script.async = true;
-			script.charset = "utf-8";
-			script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(script, s);  })();</script>
+
 	</body>
 
 </html>

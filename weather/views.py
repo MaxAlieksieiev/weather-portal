@@ -20,9 +20,10 @@ class IndexView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             city = form.cleaned_data['city']
-            weather_to_db = self.get_weather(city)
-            self.save_to_db(weather_to_db, city)
             weather = self.get_current_weather(city)
+            if 'city' in weather.keys():
+                weather_to_db = self.get_weather(city)
+                self.save_to_db(weather_to_db, city)
             context = {'form': form, 'weather': weather}
 
             return render(request, self.template_name, context=context)
@@ -83,4 +84,6 @@ class IndexView(View):
 
 class WeatherList(ListView):
     template_name = "weather/cities.html"
+    queryset = Weather.objects.all()
+    paginate_by = 3
 
