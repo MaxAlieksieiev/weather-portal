@@ -1,8 +1,8 @@
 from django.urls import path
-from . import views
+from .views import IndexView, WeatherList
 
 
 urlpatterns = [
-    path('', views.index, name="main"),
-    path('show', views.show, name="show"),
+    path('', IndexView.as_view(), name="main"),
+    path('show', WeatherList.as_view(), name="show"),
 ]
