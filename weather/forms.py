@@ -1,5 +1,4 @@
 from django.forms import ModelForm, TextInput, Form, CharField, DateTimeField
-
 from .models import Weather
 
 class CityForm(ModelForm):

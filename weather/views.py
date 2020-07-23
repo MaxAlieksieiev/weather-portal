@@ -4,7 +4,6 @@ from .models import  Weather
 from django.views import View
 from django.views.generic import ListView, FormView
 from django.core.paginator import Paginator
-from django.db.models import Q
 
 import datetime
 import requests
