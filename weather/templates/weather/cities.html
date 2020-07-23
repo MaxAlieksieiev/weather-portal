@@ -42,7 +42,7 @@
 						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
 						<ul class="menu">
 							<li class="menu-item"><a href="{% url 'main' %}">Main</a></li>
-							<li class="menu-item"><a href="{% url 'show' %}">16 day</a></li>
+							<li class="menu-item"><a href="{% url 'show' %}">5 day</a></li>
 						</ul> <!-- .menu -->
 					</div> <!-- .main-navigation -->
 
@@ -53,12 +53,15 @@
 
 			<div class="hero" data-bg-image="{% static 'images/banner.png' %}">
 				<div class="container">
-					<form action="" class="find-location" method="POST">
+					<div class="form-class">
+						<form action="" class="find-location" method="POST">
 						 {% csrf_token %}
 						 {{ form }}
-<!--						<input id="city" type="text" placeholder="Find your location...">-->
+
 						<input type="submit" value="Find">
-					</form>
+						</form>
+					</div>
+
 
 				</div>
 			</div>

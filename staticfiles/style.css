@@ -1213,6 +1213,11 @@ form textarea {
 .find-location {
   position: relative;
   margin-bottom: 70px; }
+.form-class{
+width: 50%;
+padding-bottom: 50px;
+}
+
   .find-location input[type="text"] {
     width: 100%;
     padding: 20px 50px 20px 20px;
@@ -1224,6 +1229,12 @@ form textarea {
     right: 5px;
     bottom: 5px;
     padding: 0 40px; }
+
+.form-class .find-location input[type="submit"]{
+    position: static;
+    margin-top: 20px;
+    padding: 20px 40px;
+}
 
 .forecast-container {
   width: 100%;

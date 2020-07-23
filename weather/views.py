@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from .forms import CityForm
+from .forms import CityForm, FilterForm
 from .models import  Weather
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView
+from django.core.paginator import Paginator
+
 
 import datetime
 import requests
@@ -82,8 +84,22 @@ class IndexView(View):
             Weather.objects.bulk_create(list_of_object)
 
 
-class WeatherList(ListView):
+class WeatherList(ListView, FormView):
     template_name = "weather/cities.html"
     queryset = Weather.objects.all()
+    form_class = FilterForm
+    paginator_class = Paginator
     paginate_by = 3
 
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        # if form.is_valid():
+        #     city = form.cleaned_data['city']
+        #     weather = self.get_current_weather(city)
+        #     if 'city' in weather.keys():
+        #         weather_to_db = self.get_weather(city)
+        #         self.save_to_db(weather_to_db, city)
+        #     context = {'form': form, 'weather': weather}
+        #
+        #     return render(request, self.template_name, context=context)
+        return render(request, self.template_name, {'form': form})
