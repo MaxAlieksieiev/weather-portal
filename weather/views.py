@@ -4,7 +4,7 @@ from .models import  Weather
 from django.views import View
 from django.views.generic import ListView, FormView
 from django.core.paginator import Paginator
-
+from django.db.models import Q
 
 import datetime
 import requests
@@ -91,9 +91,55 @@ class WeatherList(ListView, FormView):
     paginator_class = Paginator
     paginate_by = 3
 
+
+    def get_date(self, date):
+        date = datetime.datetime.strptime(date, "%Y-%m-%d")
+        return date.date()
+
     def get_queryset(self):
-        query = self.request.GET.get('city')
+        city = self.request.GET.get('city') if self.request.GET.get('city') else ""
+        date_to = self.request.GET.get('date_to') if self.request.GET.get('date_to') else ""
+        date_from = self.request.GET.get('date_from') if self.request.GET.get('date_from') else ""
+        if date_to:
+            date_to = self.get_date(date_to)
+        if date_from:
+            date_from = self.get_date(date_from)
+
+        query_list = {'city': city,
+                      'date_to': date_to,
+                      'date_from': date_from,
+                     }
+        query = self.make_query(query_list)
+        print(query)
         if query:
-            return Weather.objects.filter(city__icontains=query)
+            return Weather.objects.raw(query)
         else:
             return Weather.objects.all()
+
+
+    def make_query(self, array):
+        query = "SELECT * FROM weather_weather"
+        if array:
+            if array['city']:
+                query +=f" WHERE city='{array['city']}'"
+                if (array['date_from'] and array['date_to'] ):
+                    if(array['date_from'] == array['date_to']):
+                        array['date_to'] = array['date_to']+ datetime.timedelta(days=1)
+                        query += f" BETWEEN date >='{array['date_from']  }' AND date<='{array['date_to']}'"
+                        return query
+                    else:
+                        query += f"BETWEEN date >='{array['date_from']}' AND date <='{array['date_to']}'"
+                        return query
+                elif (array['date_from']  and len(array['date_to']) == 0):
+                    query +=f" AND date >='{array['date_from']}'"
+                    return query
+                elif (len(array['date_from']) == 0 and array['date_to']):
+                    query += f" AND date <='{array['date_to']}'"
+                    return query
+                elif (len(array['date_from']) == 0 and len(array['date_to']) == 0):
+                    return query
+                return query
+            else:
+                return False
+        else:
+            return False
