@@ -11,6 +11,6 @@ class CityForm(ModelForm):
         }
 
 class FilterForm(Form):
-    city = CharField(max_length=255,required=False, widget=TextInput(attrs={'class': 'city-input'}))
+    city = CharField(max_length=255, required=False, widget=TextInput(attrs={'class': 'city-input'}))
     date_from = DateTimeField(required=False)
     date_to = DateTimeField(required=False)

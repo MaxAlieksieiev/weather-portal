@@ -54,7 +54,7 @@
 			<div class="hero" data-bg-image="{% static 'images/banner.png' %}">
 				<div class="container">
 					<div class="form-class">
-						<form action="" class="find-location" method="POST">
+						<form action="" class="find-location" method="GET">
 						 {% csrf_token %}
 						 {{ form }}
 
