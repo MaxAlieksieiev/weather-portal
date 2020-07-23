@@ -91,15 +91,13 @@ class WeatherList(ListView, FormView):
     paginator_class = Paginator
     paginate_by = 3
 
+
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        # if form.is_valid():
-        #     city = form.cleaned_data['city']
-        #     weather = self.get_current_weather(city)
-        #     if 'city' in weather.keys():
-        #         weather_to_db = self.get_weather(city)
-        #         self.save_to_db(weather_to_db, city)
-        #     context = {'form': form, 'weather': weather}
-        #
-        #     return render(request, self.template_name, context=context)
+        if form.is_valid():
+            city = form.cleaned_data['city']
+            weather = Weather.objects.filter(city=city)
+            context = {'form': form, 'weather': weather}
+            print(context)
+            return render(request, self.template_name, context=context)
         return render(request, self.template_name, {'form': form})

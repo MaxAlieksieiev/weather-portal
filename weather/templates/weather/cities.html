@@ -94,29 +94,12 @@
 					</div>
 				</div>
 			</div>
+			{% if page_obj.paginator.num_pages > 1 %}
 
-			<div class="pagination">
-				<div class="container">
-					<span class="step-links">
-					{% if page_obj.has_previous %}
+    		{% include 'weather/_pagination.html' with page_obj=page_obj %}
 
-						<a class="page page-prev" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
-						<a class="page page-first" href="?page=1">1</a>
-					{% endif %}
+			{% endif %}
 
-					<span class="current">
-						<a class="page current-page" href="?page={{ page_obj.number }}">{{page_obj.number}}</a>
-					</span>
-
-					{% if page_obj.has_next %}
-						<a class="page page-last" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-						<a class="page page-next" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
-
-					{% endif %}
-					</span>
-				</div>
-
-			</div>
 
 			<footer class="site-footer">
 				<div class="container">
