@@ -110,7 +110,7 @@ class WeatherList(ListView, FormView):
                       'date_from': date_from,
                      }
         query = self.make_query(query_list)
-        print(query)
+
         if query:
             return Weather.objects.raw(query)
         else:

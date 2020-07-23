@@ -18,3 +18,4 @@ class Weather(models.Model):
 
     class Meta:
         verbose_name_plural = "weather"
+        ordering = ['date']
