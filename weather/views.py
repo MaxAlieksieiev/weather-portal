@@ -47,7 +47,9 @@ class IndexView(View):
                     'description': keys['weather'][0]['description'],
                     'wind_speed': keys['wind']['speed'],
                     'wind_direction': keys['wind']['deg'],
-                    'date': datetime.datetime(2013, 11, 20, 20, 8, 7, 127325,tzinfo=pytz.UTC).strptime(keys['dt_txt'], "%Y-%m-%d %H:%M:%S"),
+                    'date': datetime.datetime(2013, 11, 20, 20,
+                                              8, 7, 127325,tzinfo=pytz.UTC).strptime(
+                                              keys['dt_txt'], "%Y-%m-%d %H:%M:%S"),
                 }
                 weather_data.append(weather)
         except KeyError:
@@ -109,7 +111,7 @@ class WeatherList(ListView, FormView):
                       'date_from': date_from,
                      }
         query = self.make_query(query_list)
-
+        print(query)
         if query:
             return Weather.objects.raw(query)
         else:
@@ -126,8 +128,11 @@ class WeatherList(ListView, FormView):
                         array['date_to'] = array['date_to']+ datetime.timedelta(days=1)
                         query += f" BETWEEN date >='{array['date_from']  }' AND date<='{array['date_to']}'"
                         return query
-                    else:
-                        query += f"BETWEEN date >='{array['date_from']}' AND date <='{array['date_to']}'"
+                    elif(array['date_from'] < array['date_to']):
+                        query += f" AND date >='{array['date_from']}' AND date <='{array['date_to']}'"
+                        return query
+                    elif(array['date_from'] > array['date_to']):
+                        query += f" AND date >='{array['date_from']}' AND date <='{array['date_to']}'"
                         return query
                 elif (array['date_from']  and len(array['date_to']) == 0):
                     query +=f" AND date >='{array['date_from']}'"
